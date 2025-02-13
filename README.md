@@ -1,2 +1,5 @@
 # MIPS_CPU
-MIPS ISA cpu simulator
+
+Program which emulates the MIPS ISA and allows loading and running MIPS machine code.
+
+* In progress obvi
