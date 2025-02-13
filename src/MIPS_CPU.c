@@ -1,4 +1,4 @@
-#include "MIPS_CPU.h";
+#include "MIPS_CPU.h"
 
 // inclusive on both sides
 int32_t copyBitField(int32_t src, int sInd, int eInd) {
@@ -11,7 +11,7 @@ int32_t copyBitField(int32_t src, int sInd, int eInd) {
     // 2^n - 1
     // Preserve the bits you mean too, clear the rest
     int res = ((int32_t) pow(2, len) - 1) & src;
-
+    return res;
 }
 
 // opcode (31:26) Rs(25:21) Rt (20:16) Rd (15:11) shamt (10:6) funct (5:0)
@@ -30,7 +30,7 @@ bool processJType(MIPS_CPU* cpu, int32_t instruction) {
 }
 
 // returning false means the program should stop running, true it continues
-bool isa_execute(MIPS_CPU* cpu, int32_t instruction) {
+bool cpu_execute(MIPS_CPU* cpu, int32_t instruction) {
     
     int32_t opcode = copyBitField(instruction, 31, 6);
     int32_t func = copyBitField(instruction, 5, 0);
@@ -61,6 +61,7 @@ bool isa_execute(MIPS_CPU* cpu, int32_t instruction) {
 MIPS_CPU* create_cpu(MemoryUnit* mem) {
     MIPS_CPU* cpu = (MIPS_CPU*) malloc(sizeof(*cpu));
     cpu->mem = mem;
+    return cpu;
 }
 
 // Deconstructor
@@ -74,7 +75,7 @@ void cpu_start(MIPS_CPU* cpu) {
     while (running) {
         cpu->registers[0] = 0; // in case someone tries to write over register 0
         int instruction = m_readWord(cpu->mem, cpu->PC++); // fetch the instruction at the address of the pc
-        running = isa_execute(cpu, instruction);      // execute
+        running = cpu_execute(cpu, instruction);      // execute
     }
 }
 

@@ -1,3 +1,6 @@
+#ifndef MEMORY_H
+#define MEMORY_H 
+
 #include <stdint.h>
 #include <stdlib.h>
 
@@ -50,3 +53,5 @@ char m_readByte(MemoryUnit* mem, word_address address, int offset) {
     res &= 0xFF; // just the last byte
     return (char) res;
 }
+
+#endif

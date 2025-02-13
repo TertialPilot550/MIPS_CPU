@@ -67,11 +67,12 @@ struct MIPS_CPU {
 typedef struct MIPS_CPU MIPS_CPU;
 
 int32_t copyBitField(int32_t src, int sInd, int eInd);
-bool isa_execute(MIPS_CPU* cpu, int32_t instruction);
 
 MIPS_CPU* create_cpu(MemoryUnit* mem);
 void destroy_cpu(MIPS_CPU* toFree);
 void cpu_start(MIPS_CPU* cpu);
+bool cpu_execute(MIPS_CPU* cpu, int32_t instruction);
+
 
 
 #endif
